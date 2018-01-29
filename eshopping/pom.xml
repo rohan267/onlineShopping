@@ -13,6 +13,13 @@
 		<spring.version>4.3.14.RELEASE</spring.version>
 	</properties>
 	<dependencies>
+
+		<!-- linked backend to front end -->
+		<dependency>
+			<groupId>org.eshop</groupId>
+			<artifactId>shoppingBackEnd</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
