@@ -1,57 +1,75 @@
 package org.eshop.shoppingBackEnd.daoimpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eshop.shoppingBackEnd.dao.CategoryDAO;
 import org.eshop.shoppingBackEnd.dto.Category;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository("categoryDAO")
+@Transactional
 public class CategoryDAOImpl implements CategoryDAO {
 
-	private static List<Category> categories = new ArrayList<>();
-
-	static {
-		Category category1 = new Category();
-		category1.setId(1);
-		category1.setName("Television");
-		category1.setDescription("Television Description");;
-		category1.setImage_url("CAT_1.png");
-		category1.setActive(true);
-		categories.add(category1);
-		
-		Category category2 = new Category();
-		category2.setId(2);
-		category2.setName("Phones");
-		category2.setDescription("Phones Description");;
-		category2.setImage_url("CAT_2.png");
-		category2.setActive(true);
-		categories.add(category2);
-		
-		Category category3 = new Category();
-		category3.setId(3);
-		category3.setName("Laptop");
-		category3.setDescription("Laptop Description");;
-		category3.setImage_url("CAT_3.png");
-		category3.setActive(true);
-		categories.add(category3);
-		
-	}
+	@Autowired
+	private SessionFactory sessionFactory;
 	
 	@Override
 	public List<Category> list() {
-		return categories;
+		String selectActiveCategories = "FROM Category WHERE active = :active";
+		
+		Query query = sessionFactory.getCurrentSession().createQuery(selectActiveCategories);
+		query.setParameter("active", true);
+		return query.getResultList();
+	}
+
+	/**
+	 */
+	@Override
+	public Category get(int id) {
+		return sessionFactory.getCurrentSession().get(Category.class, Integer.valueOf(id));
 	}
 
 	@Override
-	public Category get(int id) {
-		for(Category category: categories) {
-			if(category.getId() == id) {
-				return category;
-			}
+	@Transactional
+	public boolean add(Category category) {
+		try {
+			sessionFactory.getCurrentSession().persist(category);
+			
+			return true;
+		} catch(Exception _ex) {
+			_ex.printStackTrace();
+			return false;
 		}
-		return null;
 	}
 
+	/**
+	 * updating a single category
+	 */
+	@Override
+	public boolean update(Category category) {
+		
+		try {
+			sessionFactory.getCurrentSession().update(category);
+		} catch(Exception _ex) {
+			_ex.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean delete(Category category) {
+		category.setActive(false);
+		try {
+			sessionFactory.getCurrentSession().update(category);
+		} catch(Exception _ex) {
+			_ex.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 }

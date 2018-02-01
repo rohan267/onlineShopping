@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
@@ -22,6 +22,7 @@
 
 	<script>
 	window.menu='${title}';
+	window.contextRoot='${contextRoot}';
 	</script>
 
     <!-- Bootstrap core CSS -->
@@ -31,9 +32,10 @@
 	<!-- theme -->
 	<link href="${css}/bootstrap-materia-theme.css" rel="stylesheet">
 	
-
     <!-- Custom styles for this template -->
     <link href="${css}/myapp.css" rel="stylesheet">
+    
+    <link href="${css}/dataTables.bootstrap.css" rel="stylesheet">
 
   </head>
 
@@ -63,6 +65,10 @@
 	    		<%@ include file="listProducts.jsp" %>
 	    </c:if>
 	    
+	    <!-- product details -->
+	    <c:if test="${userClickProductDetails==true }">
+	    		<%@ include file="productDetails.jsp" %>
+	    	</c:if>
     </div>
     
     <!-- Footer -->
@@ -71,7 +77,9 @@
     <!-- Bootstrap core JavaScript -->
     <script src="${js}/jquery.js"></script>
     <script src="${js}/bootstrap.bundle.min.js"></script>
-     <script src="${js}/myapp.js"></script>
+    <script src="${js}/jquery.dataTables.js"></script>
+    <script src="${js}/dataTables.bootstrap.js"></script>
+    <script src="${js}/myapp.js"></script>
 </div>
   </body>
 
