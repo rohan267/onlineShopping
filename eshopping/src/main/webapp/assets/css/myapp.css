@@ -9,8 +9,9 @@ html {
 }
 
 body {
-    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    padding-top: 0px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
     height:100%;
+    font-size: 16px;
 }
 
 .slide-image {
@@ -70,6 +71,7 @@ footer {
 
 
 .content {
+	margin-top:60px;
 	padding-bottom: 60px; /*height of the footer*/	
 }
 
@@ -79,14 +81,17 @@ footer {
 	position:absolute;
 	bottom:20px;
 	height: 60px;
-	
 }
 
-
 .dataTableImg {
+	width:50px;
+	height:50px;
+}
+
+.adminDataTableImg {
 	
-	width:100px;
-	height: 100px;
+	width:50px;
+	height: 50px;
 	
 }
 
@@ -238,3 +243,48 @@ input:checked + .slider:before {
 		z-index:9999;
 		background:url(../images/pre-loader.gif) 50% no-repeat #fff
 }
+
+/****/
+/* .fade.active { */
+/*   opacity: 1; */
+/* } */
+
+.fade {
+	opacity:1;
+}
+
+#signUpPersonalDivContainer {
+	margin-top: 60px;	
+}
+
+#confirmContainerId {
+	margin-top: 60px;	
+}
+
+#billingContainerId {
+	margin-top: 60px;
+}
+
+#myCategoryModal {
+/* position: relative;	 */
+	margin-top: 50Px;
+	position: relative;
+}
+
+
+.table-responsive {
+	overflow-x: inherit;
+}
+/* .modal.active .modal-dialog { */
+/*   -webkit-transform: translate(0, 0); */
+/*   -o-transform: translate(0, 0); */
+/*   transform: translate(0, 0); */
+/* } */
+
+/* .modal-backdrop .fade .active { */
+/*   opacity: 1 !important; */
+/* } */
+
+/* .modal-backdrop.fade { */
+/*     opacity: 0.5 !important; */
+/* } */
