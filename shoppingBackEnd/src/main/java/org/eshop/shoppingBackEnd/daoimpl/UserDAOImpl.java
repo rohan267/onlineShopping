@@ -49,19 +49,6 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public boolean updateCart(Cart cart) {
-		try {
-			sessionFactory.getCurrentSession().update(cart);
-			return true;
-		} catch(Exception _ex) {
-			log.error(_ex.getMessage());
-			_ex.printStackTrace();
-		}
-		
-		return false;
-	}
-
-	@Override
 	public User getByEmail(String email) {
 		String query = " from User WHERE email=:email";
 		try {

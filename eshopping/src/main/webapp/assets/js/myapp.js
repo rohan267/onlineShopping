@@ -12,6 +12,9 @@ $(function() {
 	case 'Manage Products':
 		$('#manageProducts').addClass('active');
 		break;
+	case 'User Cart':
+		$('#userCart').addClass('active');
+		break;
 	default:
 		if(menu=='Home') break;
 		$('#listProducts').addClass('active');
@@ -98,7 +101,7 @@ $(function() {
 							if(row.quantity < 1 ) {
 								str += "<a href='javascript:void(0)'><span class='btn btn-success disabled'><strike><span class='glyphicon glyphicon-shopping-cart'>Add to Cart</span></strike></a>&#160";
 							} else {
-								str += '<a href="'+window.contextRoot+'/show/'+data+'/product" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"/></a>&#160;';
+								str += '<a href="'+window.contextRoot+'/cart/add/'+data+'/product" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"/></a>&#160;';
 							}
 						}
 						return str;
@@ -307,4 +310,38 @@ var $loginForm = $('#loginForm');
 			}
 		});
 	}
+	
+	// Handling the click event of refresh cart
+	$('button[name="refreshCart"]').click(function(){
+		
+		var cartLineId = $(this).attr('value');
+		var countElement = $('#count_'+cartLineId);
+		
+		var originalCount = countElement.attr('value');
+		var currentCount = countElement.val();
+		
+		//work only when count is changed
+		if(currentCount != originalCount) {
+			if(currentCount < 1 || currentCount > 3) {
+				countElement.val(originalCount);
+				alert("Need to select quantity between 1 and 3");
+			} else {
+				var updateUrl = window.contextRoot + '/cart/' + cartLineId + '/update?count=' + currentCount;
+				
+				//forward to controller
+				window.location.href=updateUrl;
+			}
+		} 
+	});
+	
+	
+	$('button[name="deleteCart"]').click(function(){
+		var cartLineId = $(this).attr('value');
+		
+		var deleteUrl = window.contextRoot + '/cart/' + cartLineId + '/delete';
+		
+		window.location.href=deleteUrl;
+
+	});
+	
 });
